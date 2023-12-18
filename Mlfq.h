@@ -10,7 +10,7 @@ using namespace std;
 class MLFQ {
   private:
     vector<queue<Process*>>& colas;
-
+    //int totalBurstTime;
   public:
     MLFQ(vector<queue<Process*>>& colas);
     virtual ~MLFQ();

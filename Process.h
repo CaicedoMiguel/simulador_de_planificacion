@@ -7,15 +7,14 @@ const int MAX_PRIORITY = 10; // Valor máximo de prioridad
 using namespace std;
 
 class Process {
-private:
+  private:
     int id;
     int arrivalTime;
     int burstTime;
     int quantum;
     int priority;
     int completionTime;
-
-public:
+  public:
     Process(int id, int arrivalTime, int burstTime, int quantum=0, int priority=0);
     virtual ~Process();
     virtual void setBurstTime(int burst);
@@ -26,6 +25,7 @@ public:
     virtual void decrementPriority();
     virtual int getId() const;
     virtual int getArrivalTime() const;
+    virtual void setArrivalTime(int time);
     virtual  int getBurstTime() const;
     virtual int getQuantum() const;
     virtual int getTurnAround() const;

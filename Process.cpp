@@ -7,6 +7,10 @@ int Process::getId() const {
   return id;
 }
 
+void Process::setArrivalTime(int time) { 
+  arrivalTime = time;
+}
+
 int Process::getArrivalTime() const {
   return arrivalTime;
 }

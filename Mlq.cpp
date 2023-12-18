@@ -7,6 +7,9 @@ void Mlq::executeMLQ(queue<Process>& lowPriorityQueue,
                      queue<Process>& highPriorityQueue)
 {
   int currentTime = 0;
+  double totalWaitingTime = 0;
+  double totalTurnaroundTime = 0;
+  int totalProcesses = highPriorityQueue.size() + mediumPriorityQueue.size() + lowPriorityQueue.size();
 
   while (!highPriorityQueue.empty() || !mediumPriorityQueue.empty() || !lowPriorityQueue.empty()) {
     Process* processToRun = nullptr;
@@ -32,6 +35,14 @@ void Mlq::executeMLQ(queue<Process>& lowPriorityQueue,
         processToRun->setCompletionTime(currentTime);
         cout << "Proceso " << processToRun->getId() << " completado en tiempo: " << processToRun->getCompletionTime() << std::endl;
 
+        // Calcula el tiempo de espera y el tiempo de retorno para el proceso actual
+        int waitingTime = processToRun->getCompletionTime() - processToRun->getArrivalTime() - processToRun->getBurstTime();
+        int turnaroundTime = processToRun->getCompletionTime() - processToRun->getArrivalTime();
+
+        // Acumula los tiempos de espera y de retorno
+        totalWaitingTime += waitingTime;
+        totalTurnaroundTime += turnaroundTime;
+
         if (processToRun == &highPriorityQueue.front()) {
             highPriorityQueue.pop();
         } else if (processToRun == &mediumPriorityQueue.front()) {
@@ -41,4 +52,12 @@ void Mlq::executeMLQ(queue<Process>& lowPriorityQueue,
           }
     }
   }
+
+
+  double averageWaitingTime = totalWaitingTime / totalProcesses;
+  double averageTurnaroundTime = totalTurnaroundTime / totalProcesses;
+
+  cout << "Tiempo de espera promedio: " << averageWaitingTime << endl;
+  cout << "Tiempo de retorno promedio: " << averageTurnaroundTime << endl;
 }
+
